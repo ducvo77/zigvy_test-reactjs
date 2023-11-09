@@ -4,27 +4,16 @@ import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai'
 import Accordion from 'react-bootstrap/Accordion'
 import Comment from '../Comment'
 
-function Post() {
+function Post({ post }) {
   return (
     <Container className="post">
       <Row className="post-content">
-        <h2 className="post-title">
-          sunt aut facere repellat provident occaecati excepturi optio
-          reprehenderit
-        </h2>
+        <h2 className="post-title">{post?.title}</h2>
         <div className="post-info">
           <span>Author: John Smith</span>
           <span>Created at: Sep 20, 2018</span>
         </div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <p>{post?.body}</p>
       </Row>
       <Row className="post-comments">
         <Accordion>
