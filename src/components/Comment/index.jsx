@@ -1,22 +1,17 @@
 import { Button } from 'react-bootstrap'
 import './Comment.scss'
+import { IMAGES } from '../../ultis/constant'
 
-function Comment() {
+function Comment({ comment }) {
   return (
     <div className="container-comment">
-      <img
-        src="https://dulich3mien.vn/wp-content/uploads/2023/04/Anh-Avatar-doi-26.jpg"
-        alt="Avatar"
-      />
+      <img src={IMAGES.avatar} alt="Avatar" />
       <div className="comment-info">
         <div>
-          <h3>Han solo</h3>
+          <h3>{comment?.name}</h3>
           <span>a day ago</span>
         </div>
-        <p>
-          sum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-        </p>
+        <p>{comment?.body}</p>
         <div>
           <Button variant="outline-secondary">Reply to</Button>
           <Button variant="danger">Delete</Button>

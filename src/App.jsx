@@ -1,14 +1,25 @@
-import './App.scss'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Header from './components/Header/Header'
-import MainContent from './components/MainContent'
+// import Header from './components/Header'
+// import MainContent from './components/MainContent'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Home from './pages/Home'
+import ErrorPage from './components/ErrorPage'
+import PostDetail from './pages/PostDetail'
 
 function App() {
+  let router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: '/posts/:id',
+      element: <PostDetail />,
+    },
+  ])
   return (
-    <main id="wrapper-app">
-      <Header />
-      <MainContent />
-    </main>
+    <RouterProvider router={router} fallbackElement={<span>Loading...</span>} />
   )
 }
 

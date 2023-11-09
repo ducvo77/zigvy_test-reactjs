@@ -5,8 +5,9 @@
 
   img {
     width: 60px;
-    height: fit-content;
+    height: 60px;
     border-radius: 50%;
+    object-fit: cover;
   }
 }
 
@@ -25,6 +26,7 @@
       font-weight: 500;
       color: #747474;
       line-height: 1.5;
+      text-transform: capitalize;
     }
 
     span {
