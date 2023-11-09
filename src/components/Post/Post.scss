@@ -1,0 +1,60 @@
+.post {
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.post-content {
+  gap: 12px;
+  margin-bottom: 20px;
+
+  .post-title {
+    font-size: 24px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .post-info {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    font-size: 14px;
+    color: #747474;
+  }
+
+  p {
+    text-align: justify;
+  }
+}
+
+.post-comments {
+  .comment-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    .comment-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      gap: 6px;
+    }
+  }
+  .accordion {
+    .accordion-item {
+      .accordion-header {
+        .accordion-button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.wrapper-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
