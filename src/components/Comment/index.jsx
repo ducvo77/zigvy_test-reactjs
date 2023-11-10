@@ -1,13 +1,17 @@
 import { Button } from 'react-bootstrap'
 import './Comment.scss'
-import { IMAGES } from '../../ultis/constant'
 
 function Comment({ comment }) {
   if (!comment) return <div>Loading...</div>
 
   return (
     <div className="container-comment">
-      <img src={IMAGES.avatar} alt="Avatar" />
+      <img
+        src={
+          'https://dulich3mien.vn/wp-content/uploads/2023/04/Anh-Avatar-doi-26.jpg'
+        }
+        alt="Avatar"
+      />
       <div className="comment-info">
         <div>
           <h3>{comment?.name}</h3>

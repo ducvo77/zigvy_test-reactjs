@@ -1,9 +1,10 @@
 import storage from 'redux-persist/lib/storage'
 import searchReducer from '../features/search/searchSlice'
 import postReducer from '../features/post/postSlice'
+import userReducer from '../features/user/userSlice'
+import commentReducer from '../features/comment/commentSlice'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer, persistStore } from 'redux-persist'
-import thunk from 'redux-thunk'
 
 const persistConfig = {
   key: 'root',
@@ -13,13 +14,14 @@ const persistConfig = {
 const rootReducers = combineReducers({
   search: searchReducer,
   post: postReducer,
+  user: userReducer,
+  comment: commentReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducers)
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk],
 })
 
 export const persistor = persistStore(store)

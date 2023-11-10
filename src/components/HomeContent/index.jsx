@@ -6,18 +6,30 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { postApi } from '../../apis/postApi'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPostList } from '../../features/post/postSlice'
+import { setUserList } from '../../features/user/userSlice.js'
+import { userApi } from '../../apis/userApi.js'
+import { commentApi } from '../../apis/commentApi.js'
+import { setCommentList } from '../../features/comment/commentSlice.js'
 
 function HomeContent() {
   const dispatch = useDispatch()
   const postLists = useSelector((state) => state.post)
   const searchValue = useSelector((state) => state.search)
-  const [filterData, setFilterData] = useState([])
+  const users = useSelector((state) => state.user)
+  const comments = useSelector((state) => state.comment)
+
+  const [filterData, setFilterData] = useState(
+    postLists.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    )
+  )
 
   const [hasMore, setHasMore] = useState(true)
   const [index, setIndex] = useState(postLists.length / 10 + 1 || 1)
   const [mouted, setMouted] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  // fetch 10 bài viết ban đầu
   useEffect(() => {
     if (index === 1) {
       setLoading(true)
@@ -29,6 +41,7 @@ function HomeContent() {
     }
   }, [dispatch, index])
 
+  // fetch 10 sản phẩm khi scroll
   const fetchMoreData = () => {
     if (!loading) {
       setLoading(true)
@@ -46,6 +59,7 @@ function HomeContent() {
     }
   }
 
+  //fetch tất cả posts, comments khi search
   useEffect(() => {
     if (searchValue !== '' && !mouted && !loading) {
       setLoading(false)
@@ -60,6 +74,25 @@ function HomeContent() {
     }
   }, [searchValue, dispatch, mouted, loading])
 
+  // fetch tất cả user
+  useEffect(() => {
+    if (!users.length) {
+      userApi
+        .getAllUser()
+        .then((res) => dispatch(setUserList(res)))
+        .catch((err) => console.log(err))
+    }
+  }, [dispatch, users])
+
+  useEffect(() => {
+    if (!comments.length) {
+      commentApi
+        .getAllComments()
+        .then((res) => dispatch(setCommentList(res)))
+        .catch((err) => console.log(err))
+    }
+  }, [dispatch, comments])
+
   useEffect(() => {
     if (searchValue === '') return setFilterData(postLists)
     const array = postLists.filter((item) =>
@@ -70,7 +103,7 @@ function HomeContent() {
   }, [postLists, searchValue])
 
   if (!postLists.length) return <span>Loading...</span>
-  console.log(postLists)
+
   return (
     <InfiniteScroll
       dataLength={postLists.length}

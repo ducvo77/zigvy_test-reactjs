@@ -1,6 +1,5 @@
 import { Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { IMAGES } from '../ultis/constant'
 
 export default function ErrorPage() {
   return (
@@ -20,7 +19,9 @@ export default function ErrorPage() {
           <Image
             className="mx-5"
             style={{ width: '550px' }}
-            src={IMAGES.not_found}
+            src={
+              'https://raw.githubusercontent.com/shaimaa4739/Practice-React/main/src/Assets/Images/undraw_warning_cyit.png'
+            }
           />
           <Link
             to={'/'}

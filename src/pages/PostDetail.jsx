@@ -1,12 +1,12 @@
 import { Container } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import MainLayout from '../components/MainLayout'
+import Header from '../components/Header'
 import Post from '../components/Post'
 import { useEffect, useState } from 'react'
 import { postApi } from '../apis/postApi'
 
 function PostDetail() {
-  const [post, setPost] = useState([])
+  const [post, setPost] = useState({})
 
   const params = useParams()
   useEffect(() => {
@@ -16,14 +16,13 @@ function PostDetail() {
       .catch((err) => console.log(err))
   }, [params])
 
-  if (!post.length) return <span>Loading...</span>
-
   return (
-    <MainLayout>
-      <Container>
-        <Post post={post} />
+    <>
+      <Header />
+      <Container style={{ margin: '150px auto' }}>
+        {post?.id ? <Post post={post} /> : <span>Loading...</span>}
       </Container>
-    </MainLayout>
+    </>
   )
 }
 

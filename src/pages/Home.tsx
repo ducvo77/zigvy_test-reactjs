@@ -1,12 +1,16 @@
 import React from 'react'
-import MainLayout from '../components/MainLayout'
+import Header from '../components/Header'
 import HomeContent from '../components/HomeContent'
+import { Container } from 'react-bootstrap'
 
 function Home() {
   return (
-    <MainLayout>
-      <HomeContent />
-    </MainLayout>
+    <>
+      <Header />
+      <Container style={{ margin: '150px auto' }}>
+        <HomeContent />
+      </Container>
+    </>
   )
 }
 

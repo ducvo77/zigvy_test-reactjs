@@ -9,6 +9,16 @@ const getCommentByPostId = async (postId) => {
   }
 }
 
+const getAllComments = async () => {
+  try {
+    const response = await axios.get(`/comments`)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const commentApi = {
   getCommentByPostId,
+  getAllComments,
 }

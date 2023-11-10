@@ -1,42 +1,29 @@
-import { Container, Row } from 'react-bootstrap'
 import './Post.scss'
+import { Container, Row } from 'react-bootstrap'
 import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai'
 import Accordion from 'react-bootstrap/Accordion'
 import Comment from '../Comment'
-import { useEffect, useMemo, useState } from 'react'
-import { userApi } from '../../apis/userApi.js'
-import { commentApi } from '../../apis/commentApi.js'
 import { Link, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useMemo } from 'react'
 
 function Post({ post }) {
-  const [users, setUsers] = useState([])
-  const [comments, setComments] = useState([])
+  const comments = useSelector((state) => state.comment)
+  const users = useSelector((state) => state.user)
 
   const location = useLocation()
   const isHomePage = useMemo(() => location.pathname === '/', [location])
 
-  useEffect(() => {
-    userApi
-      .getAllUser()
-      .then((res) => {
-        setUsers(res)
-      })
-      .catch((err) => console.log(err))
-  }, [])
-
-  useEffect(() => {
-    commentApi
-      .getCommentByPostId(post?.id)
-      .then((res) => setComments(res))
-      .catch((err) => console.log(err))
-  }, [post])
+  const filterCommentsByPostId = comments.filter(
+    (comment) => comment.postId === post.id
+  )
 
   return (
     <Container className="post">
       <Row className="post-content">
         <h2 className="post-title">
           {isHomePage ? (
-            <Link to={`/posts/${post.id}`}>{post?.title}</Link>
+            <Link to={`/posts/${post?.id}`}>{post?.title}</Link>
           ) : (
             post?.title
           )}
@@ -50,8 +37,8 @@ function Post({ post }) {
         <p>{post?.body}</p>
       </Row>
       <Row className="post-comments">
-        <Accordion defaultActiveKey={!isHomePage && post.id.toString()}>
-          <Accordion.Item eventKey={post.id.toString()}>
+        <Accordion defaultActiveKey={!isHomePage && post?.id.toString()}>
+          <Accordion.Item eventKey={post?.id.toString()}>
             <Accordion.Header className="comment-actions">
               <div className="comment-actions">
                 <div className="comment-action">
@@ -60,13 +47,13 @@ function Post({ post }) {
                 </div>
                 <div className="comment-action">
                   <AiOutlineComment />
-                  <span>{comments?.length}</span>
+                  <span>{filterCommentsByPostId?.length}</span>
                 </div>
               </div>
             </Accordion.Header>
             <Accordion.Body>
               <div className="wrapper-comment">
-                {comments?.map((comment) => (
+                {filterCommentsByPostId?.map((comment) => (
                   <Comment key={comment.id} comment={comment} />
                 ))}
               </div>
