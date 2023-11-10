@@ -21,12 +21,6 @@ function NavScrollExample() {
     if (searchValue === '') {
       return
     }
-    //  const filterBySearch = productList.filter((item) => {
-    //    if (item.toLowerCase().includes(searchVal.toLowerCase())) {
-    //      return item
-    //    }
-    //  })
-    //  setProducts(filterBySearch)
   }
 
   return (

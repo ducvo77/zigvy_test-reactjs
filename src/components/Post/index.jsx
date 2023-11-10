@@ -18,7 +18,9 @@ function Post({ post }) {
   useEffect(() => {
     userApi
       .getAllUser()
-      .then((res) => setUsers(res))
+      .then((res) => {
+        setUsers(res)
+      })
       .catch((err) => console.log(err))
   }, [])
 
@@ -58,13 +60,13 @@ function Post({ post }) {
                 </div>
                 <div className="comment-action">
                   <AiOutlineComment />
-                  <span>{comments.length}</span>
+                  <span>{comments?.length}</span>
                 </div>
               </div>
             </Accordion.Header>
             <Accordion.Body>
               <div className="wrapper-comment">
-                {comments.map((comment) => (
+                {comments?.map((comment) => (
                   <Comment key={comment.id} comment={comment} />
                 ))}
               </div>

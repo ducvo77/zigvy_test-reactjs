@@ -7,11 +7,7 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     setPostList: (state, action) => {
-      if (state.some((post) => post === action.payload[0])) {
-        return
-      } else {
-        return [...state, ...action.payload]
-      }
+      return action.payload
     },
   },
 })

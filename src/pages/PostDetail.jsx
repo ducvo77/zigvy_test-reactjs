@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { postApi } from '../apis/postApi'
 
 function PostDetail() {
-  const [post, setPost] = useState(null)
+  const [post, setPost] = useState([])
 
   const params = useParams()
   useEffect(() => {
@@ -16,7 +16,7 @@ function PostDetail() {
       .catch((err) => console.log(err))
   }, [params])
 
-  if (!post) return <span>Loading...</span>
+  if (!post.length) return <span>Loading...</span>
 
   return (
     <MainLayout>

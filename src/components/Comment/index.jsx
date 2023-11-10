@@ -3,6 +3,8 @@ import './Comment.scss'
 import { IMAGES } from '../../ultis/constant'
 
 function Comment({ comment }) {
+  if (!comment) return <div>Loading...</div>
+
   return (
     <div className="container-comment">
       <img src={IMAGES.avatar} alt="Avatar" />
@@ -12,10 +14,7 @@ function Comment({ comment }) {
           <span>a day ago</span>
         </div>
         <p>{comment?.body}</p>
-        <div>
-          <Button variant="outline-secondary">Reply to</Button>
-          <Button variant="danger">Delete</Button>
-        </div>
+        <Button variant="outline-secondary">Reply to</Button>
       </div>
     </div>
   )
