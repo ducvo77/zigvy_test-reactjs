@@ -1,36 +1,68 @@
-import './Post.module.scss'
 
-function Post() {
+import './Post.scss'
+import { Container, Row } from 'react-bootstrap'
+import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai'
+import Accordion from 'react-bootstrap/Accordion'
+import Comment from '../Comment'
+import { Link, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useMemo } from 'react'
+
+function Post({ post }) {
+  const comments = useSelector((state) => state.comment)
+  const users = useSelector((state) => state.user)
+
+  const location = useLocation()
+  const isHomePage = useMemo(() => location.pathname === '/', [location])
+
+  const filterCommentsByPostId = comments.filter(
+    (comment) => comment.postId === post.id
+  )
+
   return (
-    <div className="post">
-      <div className="post-">
-        <h1 className="post-title">Post title</h1>
+    <Container className="post">
+      <Row className="post-content">
+        <h2 className="post-title">
+          {isHomePage ? (
+            <Link to={`/posts/${post?.id}`}>{post?.title}</Link>
+          ) : (
+            post?.title
+          )}
+        </h2>
         <div className="post-info">
-          <span>author: John Smith</span>
-          <span>Created at: Sep 20, 2018</span>
+          <span>
+            Author: {users?.filter((user) => user.id === post?.userId)[0]?.name}
+          </span>
+          <span>Created at: Sep 20, 2023</span>
         </div>
-        <p>
-          blob/master/mockup/homepage.pngblob/master/mockup/homepage.pngblob/master/mockup/homepage.png
-          blob/master/mockup/homepage.png
-        </p>
-      </div>
-      <div>
-        <span>2 replies</span>
-        <div>
-          <div>
-            <span>avatar</span>
-            <div>
-              <div>
-                <h4>Vo cong Duc</h4>
-                <span>a day ago</span>
+        <p>{post?.body}</p>
+      </Row>
+      <Row className="post-comments">
+        <Accordion defaultActiveKey={!isHomePage && post?.id.toString()}>
+          <Accordion.Item eventKey={post?.id.toString()}>
+            <Accordion.Header className="comment-actions">
+              <div className="comment-actions">
+                <div className="comment-action">
+                  <AiOutlineHeart />
+                  <span>20</span>
+                </div>
+                <div className="comment-action">
+                  <AiOutlineComment />
+                  <span>{filterCommentsByPostId?.length}</span>
+                </div>
               </div>
-              <p>asfdlkalsflaskdlaskldkalskdlaskdl</p>
-              <button>Reply to</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Accordion.Header>
+            <Accordion.Body>
+              <div className="wrapper-comment">
+                {filterCommentsByPostId?.map((comment) => (
+                  <Comment key={comment.id} comment={comment} />
+                ))}
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      </Row>
+    </Container>
   )
 }
 

@@ -1,14 +1,23 @@
-import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Header from './components/Header/Header'
-import PostList from './components/PostList'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Home from './pages/Home'
+import ErrorPage from './components/ErrorPage'
+import PostDetail from './pages/PostDetail'
 
 function App() {
+  let router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: '/posts/:id',
+      element: <PostDetail />,
+    },
+  ])
   return (
-    <main>
-      <Header />
-      <PostList />
-    </main>
+    <RouterProvider router={router} fallbackElement={<span>Loading...</span>} />
   )
 }
 
