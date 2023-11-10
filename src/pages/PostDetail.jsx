@@ -19,7 +19,7 @@ function PostDetail() {
   return (
     <>
       <Header />
-      <Container style={{ margin: '150px auto' }}>
+      <Container style={{ margin: '160px auto' }}>
         {post?.id ? <Post post={post} /> : <span>Loading...</span>}
       </Container>
     </>

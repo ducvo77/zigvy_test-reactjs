@@ -1,4 +1,3 @@
-
 import './Post.scss'
 import { Container, Row } from 'react-bootstrap'
 import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai'
@@ -6,7 +5,7 @@ import Accordion from 'react-bootstrap/Accordion'
 import Comment from '../Comment'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 function Post({ post }) {
   const comments = useSelector((state) => state.comment)
@@ -18,6 +17,10 @@ function Post({ post }) {
   const filterCommentsByPostId = comments.filter(
     (comment) => comment.postId === post.id
   )
+
+  useEffect(() => {
+    document.title = 'Post: ' + post?.title
+  }, [post])
 
   return (
     <Container className="post">

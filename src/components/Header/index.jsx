@@ -15,7 +15,11 @@ function NavScrollExample() {
   }
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary header-wrapper">
+    <Navbar
+      expand="lg"
+      className="bg-body-tertiary header-wrapper"
+      style={{ borderBottom: '1px solid #c5c5c5' }}
+    >
       <Container>
         <Navbar>
           <Link to={'/'}>
